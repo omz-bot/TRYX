@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="noel-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 TRYX • Premium Roblox Exploit - Noël Edition</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Meta -->
+    <meta name="description" content="TRYX Premium Roblox Exploit - Noël Edition. 50 Robux pour tout. Pas de système de clés.">
+    <meta name="keywords" content="TRYX, Roblox, Exploit, Hack, Cheat, Noël, Christmas, Script">
+    <meta property="og:title" content="🎄 TRYX • Premium Roblox Exploit">
+    <meta property="og:description" content="50 Robux gets you everything. No key system. Actually works.">
+    <meta property="og:image" content="https://i.imgur.com/x7VqK7g.png">
+    <meta property="og:url" content="https://tryx.vercel.app">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <!-- Neige -->
+    <div id="snow-container"></div>
+    
+    <!-- Particules -->
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Flocons géants -->
+    <div class="large-flakes"></div>
+    
+    <!-- Guirlandes -->
+    <div class="garland garland-top"></div>
+    <div class="garland garland-left"></div>
+    <div class="garland garland-right"></div>
+    
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-christmas">
+                            <div class="tree"></div>
+                            <div class="star"></div>
+                        </div>
+                    </div>
+                    <h1 class="logo-text">
+                        <span class="logo-gradient">TRYX</span>
+                        <span class="logo-sub">Noël Edition</span>
+                    </h1>
+                </div>
+                
+                <div class="tagline">
+                    <div class="tagline-content">
+                        <span class="typewriter" id="typewriter-text">Premium Roblox Exploit</span>
+                        <span class="cursor">|</span>
+                    </div>
+                    <div class="tagline-badge">
+                        <i class="fas fa-gift"></i> Limited Time
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-ornaments">
+                <div class="ornament red"></div>
+                <div class="ornament blue"></div>
+                <div class="ornament green"></div>
+                <div class="ornament gold"></div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h2 class="hero-title">
+                        <span class="hero-gradient">Premium Access</span>
+                        <span class="hero-subtitle">Stop Being <span class="strikethrough">Broke</span> Festive</span>
+                    </h2>
+                    
+                    <p class="hero-description">
+                        <span class="price-highlight">50 ROBUX</span> gets you everything. 
+                        That's cheaper than your Starbucks Christmas drink.
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-tree"></i>
+                            <span>Noël Limited Edition</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-key"></i>
+                            <span>No Key System</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-snowflake"></i>
+                            <span>Winter Updates</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-right">
+                    <div class="christmas-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-gift"></i> Special Offer</h3>
+                            <div class="countdown" id="countdown">
+                                <div class="countdown-item">
+                                    <span class="number" id="days">24</span>
+                                    <span class="label">Days</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="number" id="hours">12</span>
+                                    <span class="label">Hours</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="number" id="minutes">45</span>
+                                    <span class="label">Min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="offer-badge">
+                                <span class="price">50</span>
+                                <span class="currency">ROBUX</span>
+                            </div>
+                            
+                            <ul class="offer-list">
+                                <li><i class="fas fa-check"></i> All Premium Features</li>
+                                <li><i class="fas fa-check"></i> Lifetime Updates</li>
+                                <li><i class="fas fa-check"></i> Noël Exclusive Skins</li>
+                                <li><i class="fas fa-check"></i> Priority Support</li>
+                                <li><i class="fas fa-check"></i> Beta Access</li>
+                            </ul>
+                            
+                            <button class="btn-buy" id="buyBtn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Get TRYX Now</span>
+                                <div class="sparkles">
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="executeScript()">
+                    <i class="fas fa-play"></i>
+                    <span>Execute TRYX</span>
+                    <div class="btn-glow"></div>
+                </button>
+                
+                <button class="btn-secondary" onclick="showFeatures()">
+                    <i class="fas fa-list"></i>
+                    <span>View All Features</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features" id="features">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                <span>Premium Features</span>
+                <div class="title-ornament"></div>
+            </h2>
+            
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-crosshairs"></i>
+                        </div>
+                        <h3>🎯 AIM MODES</h3>
+                        <span class="feature-badge new">UPDATED</span>
+                    </div>
+                    <p class="feature-description">
+                        Legal aimbot that doesn't look suspicious. Actually intelligent targeting.
+                    </p>
+                    <div class="feature-details">
+                        <div class="detail-item">
+                            <i class="fas fa-crown"></i>
+                            <div>
+                                <strong>Elite Mode</strong>
+                                <small>Pro mode for people with standards</small>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <strong>Supreme Mode</strong>
+                                <small>Einstein-level calculations</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-tags">
+                        <span class="tag">Physics</span>
+                        <span class="tag">Prediction</span>
+                        <span class="tag">Smart</span>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-gun"></i>
+                        </div>
+                        <h3>🔫 SHERIFF TROLLING</h3>
+                        <span class="feature-badge improved">IMPROVED</span>
+                    </div>
+                    <p class="feature-description">
+                        Complete control over the sheriff. Make them your personal puppet.
+                    </p>
+                    <div class="feature-details">
+                        <div class="detail-item">
+                            <i class="fas fa-ban"></i>
+                            <div>
+                                <strong>Gun Breaker</strong>
+                                <small>Sheriff clicks, gun says "nah" 💀</small>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <strong>Auto Shoot</strong>
+                                <small>Sheriff becomes your turret</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-tags">
+                        <span class="tag">Control</span>
+                        <span class="tag">Trolling</span>
+                        <span class="tag">Auto</span>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>🌾 AUTO FARMING</h3>
+                        <span class="feature-badge optimized">OPTIMIZED</span>
+                    </div>
+                    <p class="feature-description">
+                        Farm without rage-quitting. Stable, efficient, and actually works.
+                    </p>
+                    <div class="feature-details">
+                        <div class="detail-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Less Errors</strong>
+                                <small>No "Invalid position" spam</small>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-running"></i>
+                            <div>
+                                <strong>Speed Bypass</strong>
+                                <small>Still here, still working</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-tags">
+                        <span class="tag">AFK</span>
+                        <span class="tag">Efficient</span>
+                        <span class="tag">Stable</span>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-khanda"></i>
+                        </div>
+                        <h3>🔪 MURDERER KITS</h3>
+                        <span class="feature-badge new">NEW</span>
+                    </div>
+                    <p class="feature-description">
+                        Total rework of kill systems. Smooth, instant, and actually lethal.
+                    </p>
+                    <div class="feature-details">
+                        <div class="detail-item">
+                            <i class="fas fa-sync"></i>
+                            <div>
+                                <strong>Kill Systems</strong>
+                                <small>No more laggy TP kills</small>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <div>
+                                <strong>Kill Aura</strong>
+                                <small>NEW: Auto kills in radius</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-tags">
+                        <span class="tag">Instant</span>
+                        <span class="tag">Aura</span>
+                        <span class="tag">Smooth</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Script Loader -->
+        <section class="loader-section">
+            <div class="loader-container">
+                <div class="loader-header">
+                    <h3><i class="fas fa-code"></i> Script Loader</h3>
+                    <div class="loader-status" id="loaderStatus">
+                        <div class="status-dot"></div>
+                        <span>Ready</span>
+                    </div>
+                </div>
+                
+                <div class="code-wrapper">
+                    <div class="code-header">
+                        <div class="code-tabs">
+                            <button class="code-tab active" onclick="switchTab('loader')">Loader</button>
+                            <button class="code-tab" onclick="switchTab('key')">Key System</button>
+                            <button class="code-tab" onclick="switchTab('update')">Latest Update</button>
+                        </div>
+                        <button class="btn-copy" onclick="copyScript()">
+                            <i class="far fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    
+                    <div class="code-content">
+                        <pre id="scriptCode" class="active">loadstring(game:HttpGet("https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"))()</pre>
+                        <pre id="keyCode">-- No key system needed!
+-- Just 50 Robux for lifetime access
+-- Get key here: https://lootdest.org/s?1JF9UJv7</pre>
+                        <pre id="updateCode">-- 🔥 UPDATE - i Cooked (Again)
+-- Auto Farming: Less errors, stable height
+-- ESP: Cleaner UI, removed ugly ESP Avatar
+-- Sheriff: Supreme Mode rebuilt, better prediction
+-- Murderer: Kill Aura added, instant multi-kill
+-- Player Settings: New input system, anti-fling works</pre>
+                    </div>
+                </div>
+                
+                <div class="loader-info">
+                    <div class="info-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Undetected • Updated Daily</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Fast Execution • Zero Lag</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-comments"></i>
+                        <span>24/7 Support • Active Discord</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Info -->
+        <section class="developer-section">
+            <div class="developer-card">
+                <div class="dev-avatar">
+                    <img src="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp?size=1024" alt="moon_820">
+                    <div class="dev-badge">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                
+                <div class="dev-info">
+                    <h3>moon_820</h3>
+                    <p class="dev-title">Lead Developer • Christmas Update Chef</p>
+                    
+                    <div class="dev-stats">
+                        <div class="stat">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <span class="number">2,500+</span>
+                                <span class="label">Lines of Code</span>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="number">10K+</span>
+                                <span class="label">Users</span>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <span class="number">100%</span>
+                                <span class="label">Satisfaction</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="dev-quote">
+                        "I actually respond to DMs. Free updates forever. No key systems because I hate them too."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-icon">🎄</div>
+                    <div>
+                        <h4>TRYX Noël Edition</h4>
+                        <p>Premium Roblox Exploit • Limited Time</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h5>Product</h5>
+                        <a href="#features">Features</a>
+                        <a href="#" onclick="showChangelog()">Changelog</a>
+                        <a href="#" onclick="showFAQ()">FAQ</a>
+                    </div>
+                    <div class="link-group">
+                        <h5>Community</h5>
+                        <a href="#" id="discordLink">Discord</a>
+                        <a href="https://github.com/Moon-820/Tryx">GitHub</a>
+                        <a href="#" onclick="showSupport()">Support</a>
+                    </div>
+                    <div class="link-group">
+                        <h5>Legal</h5>
+                        <a href="#" onclick="showDisclaimer()">Disclaimer</a>
+                        <a href="#" onclick="showTerms()">Terms</a>
+                        <a href="#" onclick="showPrivacy()">Privacy</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 TRYX • Not affiliated with Roblox Corporation • This is a fan project</p>
+                <p class="footer-note">
+                    <i class="fas fa-tree"></i> Merry Christmas & Happy Exploiting 
+                    <i class="fas fa-tree"></i>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="snow.js"></script>
+    <script src="particles.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</body>
+</html>
