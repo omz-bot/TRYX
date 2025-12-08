@@ -190,6 +190,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 20px;
 }
 
 .logo {
@@ -312,8 +313,27 @@ body {
     color: var(--text-secondary);
 }
 
+.typewriter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--christmas-green);
+    animation: typing 3.5s steps(40, end);
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
 .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background: var(--christmas-green);
+    margin-left: 2px;
     animation: blink 1s infinite;
+    vertical-align: middle;
 }
 
 @keyframes blink {
@@ -1284,4 +1304,24 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--christmas-green);
+}
+
+/* ===== ADDITIONAL FIXES ===== */
+@keyframes decorativeFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.decorative-flake:nth-child(odd) {
+    animation-timing-function: ease-in-out;
+}
+
+.decorative-flake:nth-child(even) {
+    animation-timing-function: linear;
 }
