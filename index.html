@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRYX • Ultimate Roblox Exploit</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        :root {
+            --black: #000000;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --gray: #1a1a1a;
+            --light: #ffffff;
+            --accent: #ff0000;
+            --accent-glow: rgba(255, 0, 0, 0.3);
+            --accent-dark: #cc0000;
+            --accent-light: #ff3333;
+            --blue: #0066ff;
+            --text: #ffffff;
+            --text-muted: #aaaaaa;
+            --text-dark: #666666;
+            --border: rgba(255, 0, 0, 0.2);
+            --success: #00ff00;
+            --warning: #ffff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* ===== SNOW CONTAINER ===== */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== PARTICLES ===== */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== GLOW EFFECTS ===== */
+        .glow {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 20px 40px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--black);
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 84px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-title span {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            line-height: 1.6;
+        }
+
+        /* ===== CTA BUTTONS ===== */
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 20px 45px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: var(--black);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover .btn-glow {
+            left: 100%;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 80px auto;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ===== PRICE SECTION ===== */
+        .price-section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .price-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .price-card {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+            backdrop-filter: blur(10px);
+        }
+
+        .price-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 0, 0, 0.2);
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        .price-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .price-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .price-period {
+            font-size: 18px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .price-features li {
+            color: var(--text);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-features li i {
+            color: var(--accent);
+            font-size: 18px;
+        }
+
+        .price-card .btn {
+            width: 100%;
+        }
+
+        /* ===== SCRIPT SECTION ===== */
+        .script-section {
+            padding: 120px 0;
+        }
+
+        .script-container {
+            background: rgba(5, 5, 5, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .script-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.05), transparent);
+            animation: shine 8s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .script-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .script-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .script-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .script-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+            border-color: var(--accent);
+        }
+
+        .code-area {
+            background: var(--black);
+            border-radius: 12px;
+            padding: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: var(--accent);
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 150px;
+        }
+
+        .code-area::before {
+            content: 'LUA';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--black);
+            padding: 0 15px;
+            font-size: 12px;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .script-note {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ===== COMMUNITY SECTION ===== */
+        .community-section {
+            padding: 120px 0;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .community-card {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .community-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 0, 0, 0.2);
+        }
+
+        .community-icon {
+            font-size: 64px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .community-card:hover .community-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .community-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .community-card p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        .community-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--accent);
+            padding: 16px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .community-link:hover {
+            background: var(--accent);
+            color: var(--black);
+            border-color: var(--accent);
+        }
+
+        /* ===== DEVELOPER SECTION ===== */
+        .developer-section {
+            padding: 120px 0;
+        }
+
+        .developer-profile {
+            background: rgba(5, 5, 5, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .developer-profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .dev-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+
+        .dev-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .dev-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .dev-title {
+            font-size: 24px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .dev-description {
+            font-size: 18px;
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .dev-quote {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .dev-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .dev-stat {
+            text-align: center;
+        }
+
+        .dev-stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .dev-stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ===== UPDATES SECTION ===== */
+        .updates-section {
+            padding: 120px 0;
+        }
+
+        .updates-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 80px auto 0;
+        }
+
+        .updates-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--border);
+        }
+
+        .update-item {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .update-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 4px solid var(--black);
+        }
+
+        .update-item:nth-child(odd)::before {
+            right: -60px;
+        }
+
+        .update-item:nth-child(even)::before {
+            left: -60px;
+        }
+
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .update-version {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .update-date {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .update-content {
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .update-content p {
+            margin-bottom: 20px;
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: rgba(5, 5, 5, 0.95);
+            border-top: 1px solid var(--border);
+            padding: 80px 0 40px;
+            margin-top: 120px;
+            backdrop-filter: blur(20px);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--black);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 64px; }
+            .price-amount { font-size: 56px; }
+            .developer-profile { grid-template-columns: 1fr; text-align: center; }
+            .updates-timeline::before { left: 30px; }
+            .update-item::before { left: 20px !important; right: auto !important; }
+            .update-item { margin-left: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .navbar { padding: 15px 20px; }
+            .nav-menu { display: none; }
+            .hero-title { font-size: 48px; }
+            .section-title { font-size: 36px; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .price-container { grid-template-columns: 1fr; }
+            .community-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== SNOWFLAKE STYLES ===== */
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: blur(0.5px);
+            pointer-events: none;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-accent { color: var(--accent); }
+        .text-center { text-align: center; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-50 { margin-bottom: 50px; }
+        .mt-50 { margin-top: 50px; }
+        .mt-80 { margin-top: 80px; }
+        .mt-100 { margin-top: 100px; }
+    </style>
+</head>
+<body>
+    <!-- Glow Effects -->
+    <div class="glow"></div>
+    
+    <!-- Snow Container -->
+    <div id="snow-container"></div>
+    
+    <!-- Particles -->
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">TRYX</a>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">HOME</a>
+                <a href="#pricing" class="nav-link">PRICING</a>
+                <a href="#script" class="nav-link">SCRIPT</a>
+                <a href="#community" class="nav-link">COMMUNITY</a>
+                <a href="#developer" class="nav-link">DEVELOPER</a>
+                <a href="#updates" class="nav-link">UPDATES</a>
+            </div>
+            <a href="#pricing" class="nav-cta">GET TRYX</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <span class="hero-badge">BEST MM2 SCRIPT</span>
+            <h1 class="hero-title"> 🔪 <span>TRYX</span>🎄</h1>
+            <p class="hero-subtitle">
+                Go buy the premium version, it's only 50 robux
+ 
+            </p>
+            
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="scrollToSection('pricing')">
+                    <i class="fas fa-bolt"></i>
+                    GET PREMIUM NOW
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('script')">
+                    <i class="fas fa-code"></i>
+                    VIEW FREE SCRIPT
+                </button>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Lifetime Updates</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Undetected</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50</span>
+                    <span class="stat-label">Robux Only</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Section -->
+    <section class="price-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">PREMIUM ACCESS</h2>
+            
+            <div class="price-container">
+                <div class="price-card">
+                    <div class="price-header">
+                        <div class="price-amount">FREE</div>
+                        <div class="price-period">KEY SYSTEM</div>
+                    </div>
+                    
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Silent Aim</li>
+                        <li><i class="fas fa-check"></i> Kill Aura</li>
+                        <li><i class="fas fa-check"></i> Auto Farming</li>
+                        <li><i class="fas fa-check"></i> TriggerBot</li>
+                        <li><i class="fas fa-check"></i> ESP & Visuals</li>
+                    </ul>
+                    
+                    <button class="btn btn-secondary" onclick="scrollToSection('script')">
+                        <i class="fas fa-terminal"></i>
+                        VIEW SCRIPT
+                    </button>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <div class="price-amount text-accent">PREMIUM</div>
+                        <div class="price-period">PREMIUM FEATURES</div>
+                    </div>
+                  
+                    <ul class="price-features">
+                        <li><i class="fas fa-star"></i> Full TRYX Access</li>
+                        <li><i class="fas fa-star"></i> Lifetime Updates</li>
+                        <li><i class="fas fa-star"></i> Beta Features</li>
+                        <li><i class="fas fa-star"></i> No Key System</li>
+                        <li><i class="fas fa-star"></i> Discord Webhook Access</li>
+                    </ul>
+                  
+                    <a href="https://www.roblox.com/game-pass/1418923321/VIP" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i>
+                        PURCHASE PREMIUM
+                    </a>
+                </div>
+            </div>
+            
+            <p class="text-center" style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                One payment grants you permanent access to all current and future TRYX features. 
+                No hidden fees, no subscriptions, no expiration.
+            </p>
+        </div>
+    </section>
+
+    <!-- Script Section -->
+    <section class="script-section" id="script">
+        <div class="container">
+            <h2 class="section-title">SCRIPT</h2>
+            
+            <div class="script-container">
+                <div class="script-header">
+                    <h3><i class="fas fa-terminal"></i> TRYX SCRIPT</h3>
+                    <div class="script-controls">
+                        <button class="script-btn" onclick="copyScript()">
+                            <i class="far fa-copy"></i> COPY
+                        </button>
+                        <button class="script-btn" onclick="executeScript()">
+                            <i class="fas fa-play"></i> EXECUTE
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="code-area" id="scriptCode">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"))()
+                </div>
+                
+                <p class="script-note">
+                    Paste into supported executors
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section" id="community">
+        <div class="container">
+            <h2 class="section-title">COMMUNITY</h2>
+            
+            <div class="community-grid">
+                <div class="community-card">
+                    <i class="fab fa-discord community-icon"></i>
+                    <h3>DISCORD SERVER</h3>
+                    <p>
+                        Join thousands of TRYX users in our official Discord community. 
+                        Get support, share configurations, and stay updated with the latest developments.
+                    </p>
+                    <a href="https://discord.gg/example" target="_blank" class="community-link">
+                        <i class="fab fa-discord"></i> JOIN DISCORD
+                    </a>
+                </div>
+                
+                <div class="community-card">
+                    <i class="fab fa-github community-icon"></i>
+                    <h3>GITHUB REPOSITORY</h3>
+                    <p>
+                        Access the official TRYX source code, report issues, contribute to development, 
+                        and track upcoming features on our GitHub repository.
+                    </p>
+                    <a href="https://github.com/Moon-820" target="_blank" class="community-link">
+                        <i class="fab fa-github"></i> VIEW GITHUB
+                    </a>
+                </div>
+                
+                <div class="community-card">
+                    <i class="fas fa-book community-icon"></i>
+                    <h3>DOCUMENTATION</h3>
+                    <p>
+                        Comprehensive documentation covering installation, configuration, 
+                        troubleshooting, and advanced usage of all TRYX features and systems.
+                    </p>
+                    <a href="#" class="community-link">
+                        <i class="fas fa-book"></i> READ DOCS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Developer Section -->
+<section class="developer-section" id="developer">
+    <div class="container">
+        <h2 class="section-title">DEVELOPER</h2>
+        
+        <div class="developer-profile">
+            <img src="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp?size=1024" 
+                 alt="moon_820" class="dev-avatar">
+            
+            <div class="dev-info">
+                <h3 class="dev-name">MOON_820</h3>
+                <p class="dev-title">Lead Developer & Project Maintainer</p>
+                
+                <p class="dev-description">
+                    print("Hello World")
+                </p>
+                
+                <div class="dev-quote">
+                    "Hi, I'm Moon, the official Tryx Hub Owner. I'm good at Python, C++, and Lua.U (Roblox)."
+                </div>
+                
+                <!-- AJOUT DE LA DIV .dev-stats QUI MANQUAIT -->
+                <div class="dev-stats">
+                    <div class="dev-stat">
+                        <span class="dev-stat-number">400+</span>
+                        <span class="dev-stat-label">Users</span>
+                    </div>
+                    <div class="dev-stat">
+                        <span class="dev-stat-number">∞</span>
+                        <span class="dev-stat-label">Updates</span>
+                    </div>
+                    <div class="dev-stat">
+                        <span class="dev-stat-number">24/7</span>
+                        <span class="dev-stat-label">Support</span>
+                    </div>
+                </div>
+                <!-- FIN DE LA DIV .dev-stats -->
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Updates Section -->
+    <section class="updates-section" id="updates">
+        <div class="container">
+            <h2 class="section-title">UPDATE HISTORY</h2>
+            
+            <div class="updates-timeline">
+                <div class="update-item">
+                    <div class="update-header">
+                        <h3 class="update-version"><i class="fas fa-fire"></i> v2.1.0</h3>
+                        <span class="update-date">DECEMBER 2025</span>
+                    </div>
+                    <div class="update-content">
+                        <p>
+                            Text.......
+                        </p>
+                        <p>
+                            Text.......
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="update-item">
+                    <div class="update-header">
+                        <h3 class="update-version"><i class="fas fa-rocket"></i> v2.0.0</h3>
+                        <span class="update-date">NOVEMBER 2025</span>
+                    </div>
+                    <div class="update-content">
+                        <p>
+                            Text.......
+                        </p>
+                        <p>
+                            Text.......
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="update-item">
+                    <div class="update-header">
+                        <h3 class="update-version"><i class="fas fa-cogs"></i> v1.5.0</h3>
+                        <span class="update-date">OCTOBER 2025</span>
+                    </div>
+                    <div class="update-content">
+                        <p>
+                            Text........
+                        </p>
+                        <p>
+                            Text.......
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>TRYX</h4>
+                    <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                        Premium MM2 Script designed for performance, 
+                        stability, and user experience.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>LINKS</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#script">Script</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#developer">Developer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>RESOURCES</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/Moon-820/Tryx" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/example" target="_blank">Discord</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Changelog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>LEGAL</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://discord.gg/example" target="_blank" class="social-link">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://github.com/Moon-820/Tryx" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://roblox.com/" target="_blank" class="social-link">
+                    <i class="fab fa-roblox"></i>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 TRYX. All rights reserved.</p>
+                <p style="margin-top: 10px; color: var(--text-dark);">
+                    This is a cheat fuck Roblox.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== CONFIGURATION =====
+        const CONFIG = {
+            discordUrl: "https://discord.gg/example",
+            githubUrl: "https://github.com/Moon-820",
+            purchaseUrl: "https://www.roblox.com/game-pass/1418923321/VIP",
+            scriptUrl: "https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"
+        };
+
+        // ===== SNOW SYSTEM =====
+        class SnowSystem {
+            constructor() {
+                this.container = document.getElementById('snow-container');
+                this.flakes = [];
+                this.maxFlakes = 150;
+                this.wind = 0;
+                this.mouseX = 0;
+                this.mouseY = 0;
+                
+                this.init();
+                this.animate();
+            }
+            
+            init() {
+                // Create snowflakes
+                for (let i = 0; i < this.maxFlakes; i++) {
+                    this.createFlake(true);
+                }
+                
+                // Mouse tracking
+                document.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                });
+            }
+            
+            createFlake(randomY = false) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                
+                const size = Math.random() * 6 + 2;
+                flake.style.width = `${size}px`;
+                flake.style.height = `${size}px`;
+                flake.style.left = `${Math.random() * 100}%`;
+                flake.style.top = randomY ? `${Math.random() * 100}%` : '-10px';
+                flake.style.opacity = Math.random() * 0.8 + 0.2;
+                flake.style.filter = `blur(${Math.random() * 0.5}px)`;
+                
+                // Store animation data
+                flake._data = {
+                    x: parseFloat(flake.style.left),
+                    y: parseFloat(flake.style.top),
+                    speed: Math.random() * 0.8 + 0.3,
+                    sway: Math.random() * 0.5 - 0.25,
+                    swaySpeed: Math.random() * 0.02 + 0.01,
+                    rotation: 0,
+                    rotationSpeed: Math.random() * 2 - 1
+                };
+                
+                this.container.appendChild(flake);
+                this.flakes.push(flake);
+            }
+            
+            animate() {
+                this.flakes.forEach((flake, index) => {
+                    const data = flake._data;
+                    
+                    // Update position
+                    data.y += data.speed;
+                    data.x += Math.sin(Date.now() * 0.001 * data.swaySpeed) * data.sway + this.wind;
+                    data.rotation += data.rotationSpeed;
+                    
+                    // Mouse interaction
+                    const dx = this.mouseX - (data.x / 100 * window.innerWidth);
+                    const dy = this.mouseY - (data.y / 100 * window.innerHeight);
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 150) {
+                        const force = (150 - distance) / 150;
+                        data.x += (dx / distance) * force * 0.5;
+                    }
+                    
+                    // Reset if out of bounds
+                    if (data.y > 100 || data.x < -5 || data.x > 105) {
+                        data.y = -10;
+                        data.x = Math.random() * 100;
+                    }
+                    
+                    // Apply transformations
+                    flake.style.top = `${data.y}%`;
+                    flake.style.left = `${data.x}%`;
+                    flake.style.transform = `rotate(${data.rotation}deg)`;
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // ===== PARTICLE SYSTEM =====
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particles');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.maxParticles = 50;
+                
+                this.resize();
+                this.init();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            init() {
+                for (let i = 0; i < this.maxParticles; i++) {
+                    this.createParticle();
+                }
+            }
+            
+            createParticle() {
+                this.particles.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedX: Math.random() * 0.5 - 0.25,
+                    speedY: Math.random() * 0.5 - 0.25,
+                    color: `rgba(255, ${Math.floor(Math.random() * 100)}, ${Math.floor(Math.random() * 50)}, ${Math.random() * 0.3 + 0.1})`,
+                    life: 1,
+                    decay: Math.random() * 0.002 + 0.001
+                });
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw connections
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            this.ctx.beginPath();
+                            this.ctx.strokeStyle = `rgba(255, 0, 0, ${0.2 * (1 - distance / 150)})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Update and draw particles
+                this.particles.forEach((p, i) => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.life -= p.decay;
+                    
+                    // Bounce off edges
+                    if (p.x < 0 || p.x > this.canvas.width) p.speedX *= -1;
+                    if (p.y < 0 || p.y > this.canvas.height) p.speedY *= -1;
+                    
+                    // Draw particle
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                    
+                    // Remove dead particles
+                    if (p.life <= 0) {
+                        this.particles.splice(i, 1);
+                        this.createParticle();
+                    }
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // ===== SCRIPT FUNCTIONS =====
+        function copyScript() {
+            const script = document.getElementById('scriptCode').textContent;
+            navigator.clipboard.writeText(script).then(() => {
+                showNotification('Script copied to clipboard!', 'success');
+                
+                // Visual feedback
+                const copyBtn = document.querySelector('.script-btn');
+                const original = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED';
+                copyBtn.style.background = '#00ff00';
+                copyBtn.style.color = '#000000';
+                copyBtn.style.borderColor = '#00ff00';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = original;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                    copyBtn.style.borderColor = '';
+                }, 2000);
+                
+                // Confetti effect
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff0000', '#ffffff', '#ff3333']
+                });
+            }).catch(err => {
+                showNotification('Failed to copy script', 'error');
+                console.error('Copy failed:', err);
+            });
+        }
+
+        function executeScript() {
+            showNotification('Executing TRYX script...', 'info');
+            
+            // Simulate execution
+            const executeBtn = document.querySelectorAll('.script-btn')[1];
+            const original = executeBtn.innerHTML;
+            executeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> EXECUTING';
+            executeBtn.disabled = true;
+            
+            setTimeout(() => {
+                executeBtn.innerHTML = '<i class="fas fa-check"></i> EXECUTED';
+                executeBtn.style.background = '#00ff00';
+                executeBtn.style.color = '#000000';
+                executeBtn.style.borderColor = '#00ff00';
+                
+                showNotification('TRYX executed successfully!', 'success');
+                
+                // Big confetti celebration
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 150,
+                            spread: 100,
+                            origin: { y: 0.6 },
+                            colors: ['#ff0000', '#ffffff', '#ff3333', '#ff6666']
+                        });
+                    }, i * 300);
+                }
+                
+                setTimeout(() => {
+                    executeBtn.innerHTML = original;
+                    executeBtn.style.background = '';
+                    executeBtn.style.color = '';
+                    executeBtn.style.borderColor = '';
+                    executeBtn.disabled = false;
+                }, 3000);
+            }, 2000);
+        }
+
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                        type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? 'rgba(0, 255, 0, 0.9)' : 
+                               type === 'error' ? 'rgba(255, 0, 0, 0.9)' : 
+                               'rgba(255, 255, 255, 0.1)'};
+                    color: ${type === 'success' ? '#000000' : '#ffffff'};
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+                    animation-fill-mode: forwards;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid ${type === 'success' ? 'rgba(0, 255, 0, 0.3)' : 
+                              type === 'error' ? 'rgba(255, 0, 0, 0.3)' : 
+                              'rgba(255, 255, 255, 0.2)'};
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    font-weight: 600;
+                ">
+                    <i class="fas ${icon}" style="font-size: 20px;"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Add animation styles
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes fadeOut {
+                        from { opacity: 1; }
+                        to { opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Auto remove
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        // ===== NAVIGATION FUNCTIONS =====
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize systems
+            new SnowSystem();
+            new ParticleSystem();
+            
+            // Set up navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href');
+                    scrollToSection(target.substring(1));
+                });
+            });
+            
+            // Set up purchase button
+            document.querySelector('.nav-cta').addEventListener('click', (e) => {
+                e.preventDefault();
+                scrollToSection('pricing');
+            });
+            
+            // Console greeting
+            console.log('%c🔥 TRYX ULTIMATE', 'color: #ff0000; font-size: 28px; font-weight: 900;');
+            console.log('%cPremium Roblox Exploit', 'color: #ffffff; font-size: 16px;');
+            console.log('%cDeveloper: moon_820', 'color: #ff3333;');
+            console.log('%cWebsite: Professional Edition', 'color: #aaaaaa;');
+            
+            // Add scroll animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all major sections
+            document.querySelectorAll('.price-card, .community-card, .update-item, .developer-profile').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + C to copy script
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                copyScript();
+                e.preventDefault();
+            }
+            
+            // Ctrl/Cmd + E to execute
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                executeScript();
+                e.preventDefault();
+            }
+            
+            // Escape to close notifications
+            if (e.key === 'Escape') {
+                const notification = document.querySelector('.notification');
+                if (notification) notification.remove();
+            }
+        });
+
+        // ===== PERFORMANCE OPTIMIZATION =====
+        let lastScrollTime = 0;
+        window.addEventListener('scroll', () => {
+            const now = Date.now();
+            if (now - lastScrollTime > 100) {
+                lastScrollTime = now;
+                
+                // Update active nav link
+                const sections = document.querySelectorAll('section');
+                const scrollPos = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const id = section.getAttribute('id');
+                    const offset = section.offsetTop;
+                    const height = section.offsetHeight;
+                    
+                    if (scrollPos >= offset && scrollPos < offset + height) {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        // ===== MOUSE TRAIL EFFECT =====
+        let mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+            
+            // Remove old points
+            mouseTrail = mouseTrail.filter(point => Date.now() - point.time < 1000);
+            
+            // Draw trail on particles canvas
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            
+            if (mouseTrail.length > 2) {
+                ctx.beginPath();
+                ctx.moveTo(mouseTrail[0].x, mouseTrail[0].y);
+                
+                for (let i = 1; i < mouseTrail.length; i++) {
+                    const point = mouseTrail[i];
+                    const alpha = 1 - (Date.now() - point.time) / 1000;
+                    ctx.lineTo(point.x, point.y);
+                    ctx.strokeStyle = `rgba(255, 0, 0, ${alpha * 0.3})`;
+                    ctx.lineWidth = 2;
+                }
+                
+                ctx.stroke();
+            }
+        });
+    </script>
+</body>
+</html>
