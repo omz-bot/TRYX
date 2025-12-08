@@ -284,8 +284,13 @@ body {
         var(--christmas-green),
         var(--christmas-gold)
     );
+    /* VERSION CORRIGÉE */
     -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    color: transparent;
     text-shadow: 0 0 30px var(--accent-glow);
 }
 
@@ -419,8 +424,13 @@ body {
         var(--christmas-red),
         var(--christmas-green)
     );
+    /* VERSION CORRIGÉE */
     -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    color: transparent;
     display: block;
 }
 
@@ -455,8 +465,13 @@ body {
 
 .price-highlight {
     background: linear-gradient(90deg, var(--christmas-gold), var(--christmas-red));
+    /* VERSION CORRIGÉE */
     -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    color: transparent;
     font-weight: 800;
     font-size: 24px;
 }
@@ -563,8 +578,13 @@ body {
     font-size: 64px;
     font-weight: 800;
     background: linear-gradient(90deg, var(--christmas-gold), var(--christmas-red));
+    /* VERSION CORRIGÉE */
     -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    color: transparent;
     line-height: 1;
 }
 
