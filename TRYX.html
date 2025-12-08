@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRYX • Premium Roblox Exploit</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Glitch Effects -->
+    <style>
+        :root {
+            --primary: #00f3ff;
+            --primary-glow: rgba(0, 243, 255, 0.4);
+            --secondary: #9d00ff;
+            --accent: #ff00c8;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --card-bg: rgba(20, 20, 30, 0.7);
+            --text: #ffffff;
+            --text-muted: #a0a0c0;
+            --danger: #ff4757;
+            --success: #00ff88;
+            --warning: #ffaa00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(9, 0, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 200, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+
+        .glitch-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--primary) 2px, var(--primary) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--secondary) 2px, var(--secondary) 4px);
+            z-index: -1;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        .header {
+            padding: 40px 0 20px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: 0 0 30px var(--primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .logo-text {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* CTA BUTTONS */
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* PRICING BANNER */
+        .pricing-banner {
+            background: linear-gradient(135deg, var(--bg-darker), rgba(157, 0, 255, 0.2));
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .price-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success), #00cc99);
+            color: black;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 28px;
+            margin: 15px 0;
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        /* FEATURES SECTION */
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin: 60px 0 40px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(157, 0, 255, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--success);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* UPDATE SECTION */
+        .update-section {
+            background: linear-gradient(135deg, rgba(255, 0, 200, 0.05), rgba(0, 243, 255, 0.05));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .update-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .update-badge {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .update-date {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .update-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .update-category {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .update-category h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .update-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .update-status {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        /* LOADER SECTION */
+        .loader-section {
+            text-align: center;
+            padding: 60px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .code-container {
+            background: var(--bg-darker);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        pre {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .key-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* DEV INFO */
+        .dev-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dev-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .dev-details h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .dev-details p {
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .logo-text {
+                font-size: 36px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch-effect"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon floating">T</div>
+                <div class="logo-text">TRYX</div>
+            </div>
+            <p class="tagline">Premium Roblox Exploit • No BS Key System • Actually Works</p>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <h1>
+                <span class="hero-gradient">Premium Access</span><br>
+                Stop Being Broke
+            </h1>
+            <p class="hero-subtitle">
+                50 ROBUX gets you everything. That's literally 2 sodas. Your Starbucks costs more.
+            </p>
+
+            <div class="cta-container">
+                <a href="#get-started" class="btn btn-primary">
+                    <i class="fas fa-bolt"></i> Get TRYX Now
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-list"></i> View Features
+                </a>
+            </div>
+        </section>
+
+        <!-- PRICING BANNER -->
+        <div class="pricing-banner">
+            <h2 style="font-size: 28px; margin-bottom: 15px;">What Your 50 Robux Buys</h2>
+            <div class="price-badge">
+                50 ROBUX = FULL ACCESS
+            </div>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 20px auto;">
+                No subscriptions. No key systems. No "put the key of your sister". One-time payment for lifetime updates.
+            </p>
+        </div>
+
+        <!-- FEATURES -->
+        <h2 id="features" class="section-title">💎 Premium Features</h2>
+        
+        <div class="features-grid">
+            <!-- AIM MODES -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-crosshairs"></i>
+                </div>
+                <h3 class="feature-title">🎯 AIM MODES</h3>
+                <p class="feature-desc">
+                    Legal aimbot that doesn't look like you're cheating. Actually intelligent targeting.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› Elite Mode</strong> - Pro mode for people with standards</p>
+                    <p><strong>› Supreme Mode</strong> - Einstein-level calculations</p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">
+                        • Calculates gravity like it's taking a physics exam<br>
+                        • Hits jumping targets mid-air<br>
+                        • Predicts falls from buildings
+                    </p>
+                </div>
+                <span class="feature-badge">UPDATED</span>
+            </div>
+
+            <!-- SHERIFF TOOLKIT -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gun"></i>
+                </div>
+                <h3 class="feature-title">🔫 SHERIFF TROLLING</h3>
+                <p class="feature-desc">
+                    Complete control over the sheriff. Make them your personal puppet.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› Gun Breaker</strong> - Sheriff clicks, gun says "nah" 💀</p>
+                    <p><strong>› Force Shoot</strong> - Waste sheriff's shot on command</p>
+                    <p><strong>› Auto Shoot</strong> - Sheriff becomes your turret</p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">
+                        • Chill mode: shoots when equipped<br>
+                        • Always mode: continuous fire
+                    </p>
+                </div>
+                <span class="feature-badge">IMPROVED</span>
+            </div>
+
+            <!-- WEAPON VALUES -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h3 class="feature-title">📊 WEAPON VALUES</h3>
+                <p class="feature-desc">
+                    Instant search for any knife/gun. Stop getting scammed by 9 year olds.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› Instant Search</strong> - Find any item in milliseconds</p>
+                    <p><strong>› Misspell-Proof</strong> - "corrpted" finds "Corrupted"</p>
+                    <p><strong>› Accurate Values</strong> - Know your item's real worth</p>
+                </div>
+                <span class="feature-badge">SMARTER</span>
+            </div>
+
+            <!-- AUTO FARM -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="feature-title">🌾 AUTO FARMING</h3>
+                <p class="feature-desc">
+                    Farm without rage-quitting. Stable, efficient, and actually works.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› Way Less Errors</strong> - No "Invalid position" spam</p>
+                    <p><strong>› Stable Height</strong> - No more bouncing</p>
+                    <p><strong>› Speed Bypass</strong> - Still here, still working</p>
+                </div>
+                <span class="feature-badge">OPTIMIZED</span>
+            </div>
+
+            <!-- MURDERER -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-khanda"></i>
+                </div>
+                <h3 class="feature-title">🔪 MURDERER KITS</h3>
+                <p class="feature-desc">
+                    Total rework of kill systems. Smooth, instant, and actually lethal.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› Kill Systems</strong> - No more laggy TP kills</p>
+                    <p><strong>› Kill Aura</strong> - NEW: Auto kills in radius</p>
+                    <p><strong>› Instant Multi-Kill</strong> - Equip knife + kill all</p>
+                </div>
+                <span class="feature-badge">NEW</span>
+            </div>
+
+            <!-- PLAYER SETTINGS -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3 class="feature-title">👤 PLAYER SETTINGS</h3>
+                <p class="feature-desc">
+                    Clean, intuitive controls. No more slider hell.
+                </p>
+                <div style="margin-top: 20px;">
+                    <p><strong>› New Input System</strong> - One input per setting</p>
+                    <p><strong>› Anti-Fling</strong> - Actually works now</p>
+                    <p><strong>› Speed Glitch</strong> - Optimized zoom zoom</p>
+                </div>
+                <span class="feature-badge">REWORKED</span>
+            </div>
+        </div>
+
+        <!-- LATEST UPDATE -->
+        <section class="update-section">
+            <div class="update-header">
+                <span class="update-badge">🔥 LATEST UPDATE</span>
+                <span class="update-date">i Cooked (Again)</span>
+            </div>
+            
+            <div class="update-grid">
+                <div class="update-category">
+                    <h4><i class="fas fa-robot"></i> AUTO FARMING</h4>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>Way less "Invalid position" rage moments</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>Speed bypass still here</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>No more sinking into coins</span>
+                    </div>
+                </div>
+                
+                <div class="update-category">
+                    <h4><i class="fas fa-eye"></i> ESP & VISUALS</h4>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>Removed ugly ESP Avatar</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>Cleaner UI = more screen space</span>
+                    </div>
+                </div>
+                
+                <div class="update-category">
+                    <h4><i class="fas fa-crosshairs"></i> SHERIFF IMPROVEMENTS</h4>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>Supreme Mode completely rebuilt</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>God-tier prediction accuracy</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-status">✅</span>
+                        <span>TriggerBot with zero lag</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GET STARTED -->
+        <section id="get-started" class="loader-section">
+            <h2 style="font-size: 36px; margin-bottom: 20px;">🚀 Get TRYX Now</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px;">
+                Copy and paste this script into your executor. No key system. No BS.
+            </p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>loader.lua</span>
+                    <button class="copy-btn" onclick="copyToClipboard()">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                </div>
+                <pre id="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"))()</pre>
+            </div>
+            
+            <p style="color: var(--text-muted); margin: 20px 0;">
+                Need a key? Get it here:
+            </p>
+            <a href="https://lootdest.org/s?1JF9UJv7" target="_blank" class="key-link">
+                <i class="fas fa-key"></i> Get Your Key (50 Robux)
+            </a>
+            
+            <div style="margin-top: 40px;">
+                <p style="color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-info-circle"></i> TRYX requires a Roblox executor like Synapse X, ScriptWare, or KRNL
+                </p>
+            </div>
+        </section>
+
+        <!-- DEV INFO -->
+        <div class="dev-info">
+            <img src="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp?size=1024" alt="moon_820" class="dev-avatar">
+            <div class="dev-details">
+                <h3>moon_820</h3>
+                <p>Lead Developer • Actually responds to DMs • Cooks updates weekly</p>
+                <p style="font-size: 14px; margin-top: 10px; color: var(--primary);">
+                    <i class="fas fa-star"></i> Free updates forever • Beta access • No key systems
+                </p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p style="font-size: 24px; margin-bottom: 20px; color: var(--primary);">TRYX</p>
+            <p style="margin-bottom: 20px;">Premium Roblox Exploit • No BS • Actually Works</p>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Discord</a>
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">Support</a>
+                <a href="#" class="footer-link">Changelog</a>
+            </div>
+            
+            <p style="margin-top: 30px; color: var(--text-muted); font-size: 14px;">
+                © 2024 TRYX • Not affiliated with Roblox Corporation<br>
+                This is a parody/fan project. Use at your own risk.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Copy script to clipboard
+        function copyToClipboard() {
+            const code = document.getElementById('script-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = 'var(--success)';
+                btn.style.color = 'black';
+                
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+
+        // Theme toggle (optional future feature)
+        const themes = ['dark', 'light', 'cyber'];
+        let currentTheme = 0;
+        
+        // Floating animation for cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(card);
+        });
+        
+        // Update time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                timeElement.textContent = `${dateString} • ${timeString} UTC`;
+            }
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Console greeting
+        console.log('%c🔥 TRYX Loaded • Premium Roblox Exploit', 'color: #00f3ff; font-size: 16px; font-weight: bold;');
+        console.log('%c👨‍💻 Developer: moon_820', 'color: #9d00ff;');
+        console.log('%c🚀 Version: 2.0 • Latest Update: i Cooked (Again)', 'color: #ff00c8;');
+    </script>
+</body>
+</html>
