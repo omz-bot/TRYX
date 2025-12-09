@@ -1,101 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>TRYX Script Gateway</title>
-    <script>
-    // DÉTECTION IMMÉDIATE
-    (function() {
-        'use strict';
-        
-        const userAgent = navigator.userAgent || '';
-        const isRoblox = userAgent.includes('Roblox') || 
-                        userAgent.includes('Http') ||
-                        window.location.search.includes('source=roblox');
-        
-        // 🔴 SI NAVIGATEUR → BLOQUE
-        if (!isRoblox) {
-            document.documentElement.innerHTML = `
-<!DOCTYPE html>
-<html style="height: 100%; background: #000;">
-<head>
-    <title>🔒 ACCESS DENIED | TRYX</title>
-    <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background: #000; 
-            color: #ff0000; 
-            font-family: monospace; 
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            border: 4px solid #ff0000;
-            padding: 50px;
-            background: rgba(10,0,0,0.95);
-            border-radius: 15px;
-            max-width: 800px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 50px rgba(255,0,0,0.3); }
-            50% { box-shadow: 0 0 100px rgba(255,0,0,0.6); }
-        }
-        h1 { 
-            font-size: 3em; 
-            margin-bottom: 20px; 
-            text-shadow: 0 0 20px #ff0000; 
-        }
-        .url { 
-            background: rgba(255,0,0,0.1); 
-            padding: 15px; 
-            margin: 20px 0; 
-            border-radius: 8px; 
-            font-size: 1.2em; 
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🔒 ACCESS DENIED</h1>
-        <p style="font-size: 1.5em; color: #ff6666;">
-            This script is protected and can only be loaded from:<br>
-            <strong>https://tryxhub.netlify.app</strong>
-        </p>
-        <div class="url">
-            Your attempt has been logged.<br>
-            IP: ${window.location.hostname} | Time: ${new Date().toLocaleString()}
-        </div>
-        <p style="color: #888; margin-top: 30px;">
-            ⚠️ Stop trying to steal scripts, skid.
-        </p>
-    </div>
-</body>
-</html>`;
-            return;
-        }
-        
-        // ✅ SI ROBLOX → REDIRIGE VERS LE VRAI SCRIPT
-        // Pour Roblox, on sert du texte brut
-        // On va rediriger vers un endpoint qui sert du texte
-        window.location.href = '/script-raw' + window.location.search;
-        
-    })();
-    </script>
-</head>
-<body>
-    <!-- Ce contenu ne sera jamais vu -->
-    <noscript>
-        <h1>JavaScript Required</h1>
-        <p>This gateway requires JavaScript to work properly.</p>
-    </noscript>
-</body>
-</html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1094,13 +998,6 @@
         .mt-100 { margin-top: 100px; }
     </style>
 </head>
-<div style="background: rgba(255,0,0,0.1); padding: 15px; border-radius: 8px; margin: 20px 0;">
-  <p style="color: #ff6666; margin: 0;">
-    <strong>⚠️ SECURITY ACTIVE:</strong> 
-    Direct browser access to this link will show "ACCESS DENIED".
-    It only works from within Roblox.
-  </p>
-</div>
 <body>
     <!-- Glow Effects -->
     <div class="glow"></div>
@@ -1224,33 +1121,52 @@
         </div>
     </section>
 
-    <!-- Script Section -->
-    <section class="script-section" id="script">
-        <div class="container">
-            <h2 class="section-title">SCRIPT</h2>
+<!-- Script Section -->
+<section class="script-section" id="script">
+    <div class="container">
+        <h2 class="section-title">SCRIPT</h2>
+        
+        <div class="script-container">
+            <div class="script-header">
+                <h3><i class="fas fa-terminal"></i> TRYX SCRIPT</h3>
+                <div class="script-controls">
+                    <button class="script-btn" onclick="copySecureScript()">
+                        <i class="far fa-copy"></i> COPY
+                    </button>
+                    <button class="script-btn" onclick="testSecureScript()">
+                        <i class="fas fa-shield-alt"></i> TEST SECURITY
+                    </button>
+                </div>
+            </div>
             
-            <div class="script-container">
-                <div class="script-header">
-                    <h3><i class="fas fa-terminal"></i> TRYX SCRIPT</h3>
-                    <div class="script-controls">
-                        <button class="script-btn" onclick="copyScript()">
-                            <i class="far fa-copy"></i> COPY
-                        </button>
-                        <button class="script-btn" onclick="executeScript()">
-                            <i class="fas fa-play"></i> EXECUTE
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="code-area" id="scriptCode">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"))()
-                </div>
-                
-                <p class="script-note">
-                    Paste into supported executors
+            <div class="code-area" id="scriptCode">
+-- 🔐 PROTECTED SCRIPT GATEWAY
+-- This will ONLY work from within Roblox
+loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
+            </div>
+            
+            <div class="security-notice" style="
+                background: rgba(255, 0, 0, 0.1);
+                border-left: 4px solid var(--accent);
+                padding: 20px;
+                margin-top: 30px;
+                border-radius: 8px;
+                color: var(--text-muted);
+                font-family: 'JetBrains Mono', monospace;
+            ">
+                <h4 style="color: var(--accent); margin-bottom: 10px;">
+                    <i class="fas fa-shield-alt"></i> SECURITY ACTIVE
+                </h4>
+                <p style="line-height: 1.6; margin-bottom: 10px;">
+                    <strong>Direct browser access:</strong> ❌ ACCESS DENIED<br>
+                    <strong>From Roblox executor:</strong> ✅ Script loads normally
+                </p>
+                <p style="font-size: 0.9em; color: #888;">
+                    This gateway detects and blocks unauthorized access attempts.
                 </p>
             </div>
         </div>
+    </div>
     </section>
 
     <!-- Community Section -->
@@ -1924,6 +1840,66 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Moon-820/Tryx/refs/he
                 ctx.stroke();
             }
         });
+    // ===== SECURE SCRIPT FUNCTIONS =====
+function copySecureScript() {
+    const script = `loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()`;
+    
+    navigator.clipboard.writeText(script).then(() => {
+        // Visual feedback
+        const copyBtn = document.querySelector('.script-btn');
+        const original = copyBtn.innerHTML;
+        
+        copyBtn.innerHTML = '<i class="fas fa-shield-alt"></i> COPIED SECURE';
+        copyBtn.style.background = '#00ff00';
+        copyBtn.style.color = '#000';
+        copyBtn.style.borderColor = '#00ff00';
+        
+        // Notification
+        showNotification('🔒 Secure script copied! Works only in Roblox', 'success');
+        
+        // Confetti
+        confetti({
+            particleCount: 50,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff0000', '#ffffff']
+        });
+        
+        setTimeout(() => {
+            copyBtn.innerHTML = original;
+            copyBtn.style.background = '';
+            copyBtn.style.color = '';
+            copyBtn.style.borderColor = '';
+        }, 2000);
+        
+    }).catch(err => {
+        showNotification('Failed to copy script', 'error');
+        console.error('Copy failed:', err);
+    });
+}
+
+function testSecureScript() {
+    // Ouvre le lien dans un nouvel onglet pour montrer la sécurité
+    const testWindow = window.open('https://tryxhub.netlify.app/script', '_blank');
+    
+    if (testWindow) {
+        showNotification('Testing security... You should see "ACCESS DENIED"', 'info');
+        
+        // Vérifie après 2 secondes
+        setTimeout(() => {
+            if (!testWindow.closed) {
+                showNotification('✅ Security working! Browser access is blocked.', 'success');
+            }
+        }, 2000);
+    } else {
+        showNotification('⚠️ Popup blocked. Security test requires popup permission.', 'warning');
+    }
+}
+
+// Remplace l'ancienne fonction executeScript
+window.executeScript = function() {
+    showNotification('📋 Copy the script above and paste it in your executor', 'info');
+};
     </script>
 </body>
 </html>

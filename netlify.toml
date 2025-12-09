@@ -4,24 +4,30 @@
 
 [[redirects]]
   from = "/script"
-  to = "/script.html"
+  to = "/.netlify/functions/gateway"
   status = 200
 
 [[redirects]]
   from = "/script.js"
-  to = "/script.html"
+  to = "/.netlify/functions/gateway"
+  status = 200
+
+[[redirects]]
+  from = "/loader"
+  to = "/.netlify/functions/gateway"
   status = 200
 
 [[headers]]
-  for = "/script.html"
+  for = "/.netlify/functions/gateway"
   [headers.values]
-    Content-Type = "text/html"
-    Cache-Control = "no-store"
+    X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
-  for = "/functions/script-raw"
+  for = "/*"
   [headers.values]
-    Content-Type = "text/plain"
-    Cache-Control = "public, max-age=3600"
-    X-TRYX-Protected = "true"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
