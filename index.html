@@ -996,6 +996,26 @@
         .mt-50 { margin-top: 50px; }
         .mt-80 { margin-top: 80px; }
         .mt-100 { margin-top: 100px; }
+        
+        /* ===== ACCESS DENIED PAGE STYLES ===== */
+        .access-denied-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 99999;
+            overflow: hidden;
+        }
+        
+        .skid-message {
+            font-size: 1.2em;
+            color: #ff6666;
+            margin-top: 30px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -1007,6 +1027,11 @@
     
     <!-- Particles -->
     <canvas id="particles"></canvas>
+
+    <!-- Access Denied Page (hidden by default) -->
+    <div id="accessDeniedPage" class="access-denied-page">
+        <!-- Content will be injected by JavaScript -->
+    </div>
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -1031,7 +1056,6 @@
             <h1 class="hero-title"> 🔪 <span>TRYX</span>🎄</h1>
             <p class="hero-subtitle">
                 Go buy the premium version, it's only 50 robux
- 
             </p>
             
             <div class="hero-cta">
@@ -1121,52 +1145,41 @@
         </div>
     </section>
 
-<!-- Script Section -->
-<section class="script-section" id="script">
-    <div class="container">
-        <h2 class="section-title">SCRIPT</h2>
-        
-        <div class="script-container">
-            <div class="script-header">
-                <h3><i class="fas fa-terminal"></i> TRYX SCRIPT</h3>
-                <div class="script-controls">
-                    <button class="script-btn" onclick="copySecureScript()">
-                        <i class="far fa-copy"></i> COPY
-                    </button>
-                    <button class="script-btn" onclick="testSecureScript()">
-                        <i class="fas fa-shield-alt"></i> TEST SECURITY
-                    </button>
+    <!-- Script Section -->
+    <section class="script-section" id="script">
+        <div class="container">
+            <h2 class="section-title">SCRIPT</h2>
+            
+            <div class="script-container">
+                <div class="script-header">
+                    <h3><i class="fas fa-terminal"></i> TRYX SCRIPT</h3>
+                    <div class="script-controls">
+                        <button class="script-btn" onclick="copySecureScript()">
+                            <i class="far fa-copy"></i> COPY
+                        </button>
+                        <button class="script-btn" onclick="testSecurity()">
+                            <i class="fas fa-shield-alt"></i> TEST SECURITY
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="code-area" id="scriptCode">
+-- 🔐 PROTECTED SCRIPT GATEWAY
+-- Copy this into your executor:
+loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
+                </div>
+                
+                <p class="script-note">
+                    ⚠️ Direct browser access to this link will show "ACCESS DENIED"<br>
+                    ✅ Only works when executed from within Roblox
+                </p>
+                
+                <div class="skid-message">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <strong>Skid Alert:</strong> Trying to steal this script? Good luck bypassing our protection! 😂
                 </div>
             </div>
-            
-            <div class="code-area" id="scriptCode">
--- 🔐 PROTECTED SCRIPT GATEWAY
--- This will ONLY work from within Roblox
-loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
-            </div>
-            
-            <div class="security-notice" style="
-                background: rgba(255, 0, 0, 0.1);
-                border-left: 4px solid var(--accent);
-                padding: 20px;
-                margin-top: 30px;
-                border-radius: 8px;
-                color: var(--text-muted);
-                font-family: 'JetBrains Mono', monospace;
-            ">
-                <h4 style="color: var(--accent); margin-bottom: 10px;">
-                    <i class="fas fa-shield-alt"></i> SECURITY ACTIVE
-                </h4>
-                <p style="line-height: 1.6; margin-bottom: 10px;">
-                    <strong>Direct browser access:</strong> ❌ ACCESS DENIED<br>
-                    <strong>From Roblox executor:</strong> ✅ Script loads normally
-                </p>
-                <p style="font-size: 0.9em; color: #888;">
-                    This gateway detects and blocks unauthorized access attempts.
-                </p>
-            </div>
         </div>
-    </div>
     </section>
 
     <!-- Community Section -->
@@ -1214,47 +1227,45 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
         </div>
     </section>
 
-<!-- Developer Section -->
-<section class="developer-section" id="developer">
-    <div class="container">
-        <h2 class="section-title">DEVELOPER</h2>
-        
-        <div class="developer-profile">
-            <img src="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp?size=1024" 
-                 alt="moon_820" class="dev-avatar">
+    <!-- Developer Section -->
+    <section class="developer-section" id="developer">
+        <div class="container">
+            <h2 class="section-title">DEVELOPER</h2>
             
-            <div class="dev-info">
-                <h3 class="dev-name">MOON_820</h3>
-                <p class="dev-title">Lead Developer & Project Maintainer</p>
+            <div class="developer-profile">
+                <img src="https://cdn.discordapp.com/avatars/1391200044195254404/7fabd40ce13ced3492786bc039bdb4f0.webp?size=1024" 
+                     alt="moon_820" class="dev-avatar">
                 
-                <p class="dev-description">
-                    print("Hello World")
-                </p>
-                
-                <div class="dev-quote">
-                    "Hi, I'm Moon, the official Tryx Hub Owner. I'm good at Python, C++, and Lua.U (Roblox)."
+                <div class="dev-info">
+                    <h3 class="dev-name">MOON_820</h3>
+                    <p class="dev-title">Lead Developer & Project Maintainer</p>
+                    
+                    <p class="dev-description">
+                        print("Hello World")
+                    </p>
+                    
+                    <div class="dev-quote">
+                        "Hi, I'm Moon, the official Tryx Hub Owner. I'm good at Python, C++, and Lua.U (Roblox)."
+                    </div>
+                    
+                    <div class="dev-stats">
+                        <div class="dev-stat">
+                            <span class="dev-stat-number">400+</span>
+                            <span class="dev-stat-label">Users</span>
+                        </div>
+                        <div class="dev-stat">
+                            <span class="dev-stat-number">∞</span>
+                            <span class="dev-stat-label">Updates</span>
+                        </div>
+                        <div class="dev-stat">
+                            <span class="dev-stat-number">24/7</span>
+                            <span class="dev-stat-label">Support</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- AJOUT DE LA DIV .dev-stats QUI MANQUAIT -->
-                <div class="dev-stats">
-                    <div class="dev-stat">
-                        <span class="dev-stat-number">400+</span>
-                        <span class="dev-stat-label">Users</span>
-                    </div>
-                    <div class="dev-stat">
-                        <span class="dev-stat-number">∞</span>
-                        <span class="dev-stat-label">Updates</span>
-                    </div>
-                    <div class="dev-stat">
-                        <span class="dev-stat-number">24/7</span>
-                        <span class="dev-stat-label">Support</span>
-                    </div>
-                </div>
-                <!-- FIN DE LA DIV .dev-stats -->
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Updates Section -->
     <section class="updates-section" id="updates">
@@ -1382,8 +1393,237 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
             discordUrl: "https://discord.gg/example",
             githubUrl: "https://github.com/Moon-820",
             purchaseUrl: "https://www.roblox.com/game-pass/1418923321/VIP",
-            scriptUrl: "https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"
+            realScript: "https://raw.githubusercontent.com/Moon-820/Tryx/refs/heads/main/Loader"
         };
+
+        // ===== SECURITY SYSTEM =====
+        class SecuritySystem {
+            constructor() {
+                this.isScriptPage = window.location.pathname.includes('/script');
+                this.init();
+            }
+            
+            init() {
+                // Si on est sur /script, afficher ACCESS DENIED
+                if (this.isScriptPage && this.isBrowser()) {
+                    this.showAccessDenied();
+                }
+                
+                // Sinon, continuer normalement
+                this.initEffects();
+            }
+            
+            isBrowser() {
+                // Détecte si c'est un navigateur web normal (pas Roblox)
+                const ua = navigator.userAgent;
+                return (
+                    ua.includes('Mozilla') &&
+                    ua.includes('AppleWebKit') &&
+                    !ua.includes('Roblox') &&
+                    !ua.includes('HttpClient') &&
+                    !ua.includes('Executor')
+                );
+            }
+            
+            showAccessDenied() {
+                const page = document.getElementById('accessDeniedPage');
+                page.innerHTML = this.generateAccessDeniedHTML();
+                page.style.display = 'block';
+                
+                // Cache le site normal
+                document.querySelectorAll('nav, section, footer').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Bloque les interactions
+                this.blockInteractions();
+                
+                console.log('%c🔒 TRYX SECURITY SYSTEM ACTIVATED', 'color: #ff0000; font-size: 20px; font-weight: bold;');
+                console.log('%cSkid detected trying to access protected script endpoint', 'color: #ff6666;');
+            }
+            
+            generateAccessDeniedHTML() {
+                const jokes = [
+                    "Trying to steal scripts? Go learn to code first! 😂",
+                    "Your skid level: 100/100 🏆",
+                    "Even my grandma could write better protection! 👵",
+                    "This is more secure than your mom's wifi password! 🔐",
+                    "Go back to downloading pastebins from YouTube! 📺",
+                    "You probably think 'KRNL' is a type of bread! 🍞",
+                    "Error 404: Skid skills not found! ❌",
+                    "Your IP has been logged... to the 'Skids Hall of Fame'! 🏛️",
+                    "This protection is stronger than your will to live! 💀",
+                    "You couldn't bypass a wet paper bag! 🛍️"
+                ];
+                
+                const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+                
+                return `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #000;
+                    color: #ff0000;
+                    font-family: 'Orbitron', monospace;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    padding: 20px;
+                    z-index: 999999;
+                    overflow: hidden;
+                ">
+                    <div style="
+                        border: 4px solid #ff0000;
+                        padding: 60px 80px;
+                        border-radius: 20px;
+                        background: rgba(10, 0, 0, 0.97);
+                        max-width: 900px;
+                        box-shadow: 0 0 100px rgba(255, 0, 0, 0.5);
+                        position: relative;
+                        animation: glitch 3s infinite;
+                    ">
+                        <h1 style="
+                            font-size: 4em;
+                            margin-bottom: 30px;
+                            text-transform: uppercase;
+                            letter-spacing: 8px;
+                            text-shadow: 0 0 30px #ff0000;
+                        ">
+                            🔒 ACCESS DENIED
+                        </h1>
+                        
+                        <div style="
+                            height: 3px;
+                            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+                            margin: 40px 0;
+                        "></div>
+                        
+                        <p style="font-size: 1.8em; color: #ff6666; margin: 30px 0;">
+                            This script is <span style="color: #fff; font-weight: bold;">PROTECTED</span><br>
+                            and can only be loaded from within Roblox
+                        </p>
+                        
+                        <div style="
+                            background: rgba(255, 0, 0, 0.1);
+                            border: 2px solid rgba(255, 0, 0, 0.3);
+                            padding: 20px;
+                            margin: 40px 0;
+                            border-radius: 10px;
+                            font-size: 1.6em;
+                        ">
+                            Official website only:<br>
+                            <a href="https://tryxhub.netlify.app" style="color: #ff3333; text-decoration: none; font-weight: bold;">
+                                https://tryxhub.netlify.app
+                            </a>
+                        </div>
+                        
+                        <div style="
+                            color: #888;
+                            font-size: 1.2em;
+                            margin: 30px 0;
+                            padding: 20px;
+                            background: rgba(255, 0, 0, 0.05);
+                            border-radius: 10px;
+                            font-style: italic;
+                        ">
+                            ${randomJoke}
+                        </div>
+                        
+                        <div style="
+                            margin-top: 50px;
+                            padding-top: 30px;
+                            border-top: 1px solid rgba(255, 0, 0, 0.2);
+                            color: #555;
+                            font-size: 0.9em;
+                        ">
+                            <div style="display: flex; justify-content: center; gap: 30px; margin: 20px 0;">
+                                <div>
+                                    <strong>IP:</strong><br>
+                                    <span style="color: #aaa;">${window.location.hostname}</span>
+                                </div>
+                                <div>
+                                    <strong>TIME:</strong><br>
+                                    <span style="color: #aaa;">${new Date().toLocaleString()}</span>
+                                </div>
+                                <div>
+                                    <strong>AGENT:</strong><br>
+                                    <span style="color: #aaa;">${navigator.userAgent.substring(0, 30)}...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="countdown" style="
+                            font-size: 2em;
+                            color: #fff;
+                            margin: 40px 0;
+                            font-weight: bold;
+                            font-family: 'Courier New', monospace;
+                        ">
+                            Redirecting in 10...
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes glitch {
+                        0%, 100% { transform: translate(0); }
+                        1%, 3%, 5%, 7%, 9% { transform: translate(-2px, 2px); }
+                        2%, 4%, 6%, 8%, 10% { transform: translate(2px, -2px); }
+                    }
+                </style>`;
+            }
+            
+            blockInteractions() {
+                // Bloque le clic droit
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    alert('🚫 Right-click disabled on protected page');
+                    return false;
+                });
+                
+                // Bloque F12, Ctrl+U, etc.
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                        (e.ctrlKey && e.key === 'U') || (e.ctrlKey && e.key === 'S')) {
+                        e.preventDefault();
+                        alert('🚫 Developer tools are disabled');
+                        return false;
+                    }
+                });
+                
+                // Bloque la copie
+                document.addEventListener('copy', (e) => {
+                    e.preventDefault();
+                    alert('🚫 Copy disabled on protected page');
+                    return false;
+                });
+                
+                // Redirection automatique
+                let count = 10;
+                const countdownEl = document.getElementById('countdown');
+                const timer = setInterval(() => {
+                    count--;
+                    countdownEl.textContent = `Redirecting in ${count}...`;
+                    
+                    if (count <= 0) {
+                        clearInterval(timer);
+                        window.location.href = 'https://tryxhub.netlify.app';
+                    }
+                }, 1000);
+            }
+            
+            initEffects() {
+                // Initialise les effets visuels seulement si pas sur /script
+                if (!this.isScriptPage || !this.isBrowser()) {
+                    new SnowSystem();
+                    new ParticleSystem();
+                }
+            }
+        }
 
         // ===== SNOW SYSTEM =====
         class SnowSystem {
@@ -1391,25 +1631,14 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
                 this.container = document.getElementById('snow-container');
                 this.flakes = [];
                 this.maxFlakes = 150;
-                this.wind = 0;
-                this.mouseX = 0;
-                this.mouseY = 0;
-                
                 this.init();
                 this.animate();
             }
             
             init() {
-                // Create snowflakes
                 for (let i = 0; i < this.maxFlakes; i++) {
                     this.createFlake(true);
                 }
-                
-                // Mouse tracking
-                document.addEventListener('mousemove', (e) => {
-                    this.mouseX = e.clientX;
-                    this.mouseY = e.clientY;
-                });
             }
             
             createFlake(randomY = false) {
@@ -1422,52 +1651,22 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
                 flake.style.left = `${Math.random() * 100}%`;
                 flake.style.top = randomY ? `${Math.random() * 100}%` : '-10px';
                 flake.style.opacity = Math.random() * 0.8 + 0.2;
-                flake.style.filter = `blur(${Math.random() * 0.5}px)`;
-                
-                // Store animation data
-                flake._data = {
-                    x: parseFloat(flake.style.left),
-                    y: parseFloat(flake.style.top),
-                    speed: Math.random() * 0.8 + 0.3,
-                    sway: Math.random() * 0.5 - 0.25,
-                    swaySpeed: Math.random() * 0.02 + 0.01,
-                    rotation: 0,
-                    rotationSpeed: Math.random() * 2 - 1
-                };
                 
                 this.container.appendChild(flake);
                 this.flakes.push(flake);
             }
             
             animate() {
-                this.flakes.forEach((flake, index) => {
-                    const data = flake._data;
+                this.flakes.forEach((flake) => {
+                    let top = parseFloat(flake.style.top);
+                    top += Math.random() * 0.8 + 0.3;
                     
-                    // Update position
-                    data.y += data.speed;
-                    data.x += Math.sin(Date.now() * 0.001 * data.swaySpeed) * data.sway + this.wind;
-                    data.rotation += data.rotationSpeed;
-                    
-                    // Mouse interaction
-                    const dx = this.mouseX - (data.x / 100 * window.innerWidth);
-                    const dy = this.mouseY - (data.y / 100 * window.innerHeight);
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 150) {
-                        const force = (150 - distance) / 150;
-                        data.x += (dx / distance) * force * 0.5;
+                    if (top > 100) {
+                        top = -10;
+                        flake.style.left = `${Math.random() * 100}%`;
                     }
                     
-                    // Reset if out of bounds
-                    if (data.y > 100 || data.x < -5 || data.x > 105) {
-                        data.y = -10;
-                        data.x = Math.random() * 100;
-                    }
-                    
-                    // Apply transformations
-                    flake.style.top = `${data.y}%`;
-                    flake.style.left = `${data.x}%`;
-                    flake.style.transform = `rotate(${data.rotation}deg)`;
+                    flake.style.top = `${top}%`;
                 });
                 
                 requestAnimationFrame(() => this.animate());
@@ -1507,54 +1706,24 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
                     size: Math.random() * 3 + 1,
                     speedX: Math.random() * 0.5 - 0.25,
                     speedY: Math.random() * 0.5 - 0.25,
-                    color: `rgba(255, ${Math.floor(Math.random() * 100)}, ${Math.floor(Math.random() * 50)}, ${Math.random() * 0.3 + 0.1})`,
-                    life: 1,
-                    decay: Math.random() * 0.002 + 0.001
+                    color: `rgba(255, ${Math.floor(Math.random() * 100)}, ${Math.floor(Math.random() * 50)}, ${Math.random() * 0.3 + 0.1})`
                 });
             }
             
             animate() {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 
-                // Draw connections
-                for (let i = 0; i < this.particles.length; i++) {
-                    for (let j = i + 1; j < this.particles.length; j++) {
-                        const dx = this.particles[i].x - this.particles[j].x;
-                        const dy = this.particles[i].y - this.particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 150) {
-                            this.ctx.beginPath();
-                            this.ctx.strokeStyle = `rgba(255, 0, 0, ${0.2 * (1 - distance / 150)})`;
-                            this.ctx.lineWidth = 1;
-                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
-                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                            this.ctx.stroke();
-                        }
-                    }
-                }
-                
-                // Update and draw particles
-                this.particles.forEach((p, i) => {
+                this.particles.forEach((p) => {
                     p.x += p.speedX;
                     p.y += p.speedY;
-                    p.life -= p.decay;
                     
-                    // Bounce off edges
                     if (p.x < 0 || p.x > this.canvas.width) p.speedX *= -1;
                     if (p.y < 0 || p.y > this.canvas.height) p.speedY *= -1;
                     
-                    // Draw particle
                     this.ctx.beginPath();
                     this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     this.ctx.fillStyle = p.color;
                     this.ctx.fill();
-                    
-                    // Remove dead particles
-                    if (p.life <= 0) {
-                        this.particles.splice(i, 1);
-                        this.createParticle();
-                    }
                 });
                 
                 requestAnimationFrame(() => this.animate());
@@ -1562,85 +1731,42 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
         }
 
         // ===== SCRIPT FUNCTIONS =====
-        function copyScript() {
-            const script = document.getElementById('scriptCode').textContent;
+        function copySecureScript() {
+            const script = `loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()`;
+            
             navigator.clipboard.writeText(script).then(() => {
-                showNotification('Script copied to clipboard!', 'success');
+                showNotification('🔒 Secure script copied! Works only in Roblox', 'success');
                 
-                // Visual feedback
                 const copyBtn = document.querySelector('.script-btn');
                 const original = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED';
+                copyBtn.innerHTML = '<i class="fas fa-shield-alt"></i> COPIED';
                 copyBtn.style.background = '#00ff00';
-                copyBtn.style.color = '#000000';
-                copyBtn.style.borderColor = '#00ff00';
+                copyBtn.style.color = '#000';
+                
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
                 
                 setTimeout(() => {
                     copyBtn.innerHTML = original;
                     copyBtn.style.background = '';
                     copyBtn.style.color = '';
-                    copyBtn.style.borderColor = '';
                 }, 2000);
-                
-                // Confetti effect
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff0000', '#ffffff', '#ff3333']
-                });
-            }).catch(err => {
-                showNotification('Failed to copy script', 'error');
-                console.error('Copy failed:', err);
             });
         }
-
-        function executeScript() {
-            showNotification('Executing TRYX script...', 'info');
-            
-            // Simulate execution
-            const executeBtn = document.querySelectorAll('.script-btn')[1];
-            const original = executeBtn.innerHTML;
-            executeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> EXECUTING';
-            executeBtn.disabled = true;
-            
-            setTimeout(() => {
-                executeBtn.innerHTML = '<i class="fas fa-check"></i> EXECUTED';
-                executeBtn.style.background = '#00ff00';
-                executeBtn.style.color = '#000000';
-                executeBtn.style.borderColor = '#00ff00';
-                
-                showNotification('TRYX executed successfully!', 'success');
-                
-                // Big confetti celebration
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => {
-                        confetti({
-                            particleCount: 150,
-                            spread: 100,
-                            origin: { y: 0.6 },
-                            colors: ['#ff0000', '#ffffff', '#ff3333', '#ff6666']
-                        });
-                    }, i * 300);
-                }
-                
-                setTimeout(() => {
-                    executeBtn.innerHTML = original;
-                    executeBtn.style.background = '';
-                    executeBtn.style.color = '';
-                    executeBtn.style.borderColor = '';
-                    executeBtn.disabled = false;
-                }, 3000);
-            }, 2000);
+        
+        function testSecurity() {
+            window.open('https://tryxhub.netlify.app/script', '_blank');
+            showNotification('Testing security... You should see "ACCESS DENIED"', 'info');
         }
 
         // ===== NOTIFICATION SYSTEM =====
         function showNotification(message, type = 'info') {
-            // Remove existing notification
             const existing = document.querySelector('.notification');
             if (existing) existing.remove();
             
-            // Create notification
             const notification = document.createElement('div');
             notification.className = 'notification';
             
@@ -1678,24 +1804,20 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
             
             document.body.appendChild(notification);
             
-            // Add animation styles
-            if (!document.querySelector('#notification-styles')) {
-                const style = document.createElement('style');
-                style.id = 'notification-styles';
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                    @keyframes fadeOut {
-                        from { opacity: 1; }
-                        to { opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
             
-            // Auto remove
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.remove();
@@ -1703,7 +1825,7 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
             }, 3000);
         }
 
-        // ===== NAVIGATION FUNCTIONS =====
+        // ===== NAVIGATION =====
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
@@ -1720,11 +1842,10 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize systems
-            new SnowSystem();
-            new ParticleSystem();
+            // Initialise le système de sécurité
+            new SecuritySystem();
             
-            // Set up navigation
+            // Setup navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1733,19 +1854,17 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
                 });
             });
             
-            // Set up purchase button
+            // Setup buttons
             document.querySelector('.nav-cta').addEventListener('click', (e) => {
                 e.preventDefault();
                 scrollToSection('pricing');
             });
             
-            // Console greeting
+            // Console message
             console.log('%c🔥 TRYX ULTIMATE', 'color: #ff0000; font-size: 28px; font-weight: 900;');
-            console.log('%cPremium Roblox Exploit', 'color: #ffffff; font-size: 16px;');
-            console.log('%cDeveloper: moon_820', 'color: #ff3333;');
-            console.log('%cWebsite: Professional Edition', 'color: #aaaaaa;');
+            console.log('%c🔒 Protected by SHΔDØW CORE Security System', 'color: #ff3333;');
             
-            // Add scroll animation
+            // Scroll animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1755,7 +1874,6 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
                 });
             }, { threshold: 0.1 });
             
-            // Observe all major sections
             document.querySelectorAll('.price-card, .community-card, .update-item, .developer-profile').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(50px)';
@@ -1766,140 +1884,16 @@ loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()
 
         // ===== KEYBOARD SHORTCUTS =====
         document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + C to copy script
             if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-                copyScript();
+                copySecureScript();
                 e.preventDefault();
             }
             
-            // Ctrl/Cmd + E to execute
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
-                executeScript();
-                e.preventDefault();
-            }
-            
-            // Escape to close notifications
             if (e.key === 'Escape') {
                 const notification = document.querySelector('.notification');
                 if (notification) notification.remove();
             }
         });
-
-        // ===== PERFORMANCE OPTIMIZATION =====
-        let lastScrollTime = 0;
-        window.addEventListener('scroll', () => {
-            const now = Date.now();
-            if (now - lastScrollTime > 100) {
-                lastScrollTime = now;
-                
-                // Update active nav link
-                const sections = document.querySelectorAll('section');
-                const scrollPos = window.scrollY + 100;
-                
-                sections.forEach(section => {
-                    const id = section.getAttribute('id');
-                    const offset = section.offsetTop;
-                    const height = section.offsetHeight;
-                    
-                    if (scrollPos >= offset && scrollPos < offset + height) {
-                        document.querySelectorAll('.nav-link').forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
-        // ===== MOUSE TRAIL EFFECT =====
-        let mouseTrail = [];
-        document.addEventListener('mousemove', (e) => {
-            mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
-            
-            // Remove old points
-            mouseTrail = mouseTrail.filter(point => Date.now() - point.time < 1000);
-            
-            // Draw trail on particles canvas
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
-            
-            if (mouseTrail.length > 2) {
-                ctx.beginPath();
-                ctx.moveTo(mouseTrail[0].x, mouseTrail[0].y);
-                
-                for (let i = 1; i < mouseTrail.length; i++) {
-                    const point = mouseTrail[i];
-                    const alpha = 1 - (Date.now() - point.time) / 1000;
-                    ctx.lineTo(point.x, point.y);
-                    ctx.strokeStyle = `rgba(255, 0, 0, ${alpha * 0.3})`;
-                    ctx.lineWidth = 2;
-                }
-                
-                ctx.stroke();
-            }
-        });
-    // ===== SECURE SCRIPT FUNCTIONS =====
-function copySecureScript() {
-    const script = `loadstring(game:HttpGet("https://tryxhub.netlify.app/script"))()`;
-    
-    navigator.clipboard.writeText(script).then(() => {
-        // Visual feedback
-        const copyBtn = document.querySelector('.script-btn');
-        const original = copyBtn.innerHTML;
-        
-        copyBtn.innerHTML = '<i class="fas fa-shield-alt"></i> COPIED SECURE';
-        copyBtn.style.background = '#00ff00';
-        copyBtn.style.color = '#000';
-        copyBtn.style.borderColor = '#00ff00';
-        
-        // Notification
-        showNotification('🔒 Secure script copied! Works only in Roblox', 'success');
-        
-        // Confetti
-        confetti({
-            particleCount: 50,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#ff0000', '#ffffff']
-        });
-        
-        setTimeout(() => {
-            copyBtn.innerHTML = original;
-            copyBtn.style.background = '';
-            copyBtn.style.color = '';
-            copyBtn.style.borderColor = '';
-        }, 2000);
-        
-    }).catch(err => {
-        showNotification('Failed to copy script', 'error');
-        console.error('Copy failed:', err);
-    });
-}
-
-function testSecureScript() {
-    // Ouvre le lien dans un nouvel onglet pour montrer la sécurité
-    const testWindow = window.open('https://tryxhub.netlify.app/script', '_blank');
-    
-    if (testWindow) {
-        showNotification('Testing security... You should see "ACCESS DENIED"', 'info');
-        
-        // Vérifie après 2 secondes
-        setTimeout(() => {
-            if (!testWindow.closed) {
-                showNotification('✅ Security working! Browser access is blocked.', 'success');
-            }
-        }, 2000);
-    } else {
-        showNotification('⚠️ Popup blocked. Security test requires popup permission.', 'warning');
-    }
-}
-
-// Remplace l'ancienne fonction executeScript
-window.executeScript = function() {
-    showNotification('📋 Copy the script above and paste it in your executor', 'info');
-};
     </script>
 </body>
 </html>
