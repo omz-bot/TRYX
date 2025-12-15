@@ -1742,7 +1742,57 @@ function activateRainbowMode() {
         }
     }());
 }
-        
+   
+// ===== ALTERNATIVE MOBILE (Tap Code) =====
+const tapTarget = document.querySelector('.nav-logo'); // Cible: Le logo TRYX dans la barre de navigation
+const TAP_SEQUENCE_LENGTH = 7; // Exemple : 7 taps rapides
+const TAP_TIMEOUT = 500; // Temps max entre deux taps (en millisecondes)
+
+let tapCount = 0;
+let lastTapTime = 0;
+
+tapTarget.addEventListener('click', (e) => {
+    e.preventDefault(); // Empêche la navigation
+    
+    const currentTime = Date.now();
+    
+    // 1. Vérifie si le tap est trop lent (réinitialise la séquence)
+    if (currentTime - lastTapTime > TAP_TIMEOUT) {
+        tapCount = 1;
+    } 
+    // 2. Si le tap est rapide, incrémente le compteur
+    else {
+        tapCount++;
+    }
+    
+    lastTapTime = currentTime; // Met à jour l'heure du dernier tap
+
+    // DEBUG: Affiche le compteur dans la console (à retirer plus tard)
+    // console.log(`Tap count: ${tapCount}`); 
+
+    // 3. Vérifie si la séquence est complète
+    if (tapCount === TAP_SEQUENCE_LENGTH) {
+        // Appelle la fonction qui active le mode Arc-en-ciel
+        activateRainbowMode();
+        tapCount = 0; // Réinitialise
+    }
+    
+    // Ajoute un feedback visuel
+    tapTarget.classList.add('tapped');
+    setTimeout(() => {
+        tapTarget.classList.remove('tapped');
+    }, 100);
+});
+
+// Ajoute un peu de CSS pour le feedback visuel (taper le logo)
+// Ceci doit être placé dans la section <style>
+/*
+.nav-logo.tapped {
+    transform: scale(1.05);
+    color: #00ccff !important;
+    transition: transform 0.1s, color 0.1s;
+}
+*/
     </script>
 </body>
 </html>
