@@ -1,4 +1,0 @@
-# Netlify redirects configuration
-/script     200
-/loader     200
-/script.js  200
