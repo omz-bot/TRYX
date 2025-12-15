@@ -993,6 +993,81 @@
         .mt-50 { margin-top: 50px; }
         .mt-80 { margin-top: 80px; }
         .mt-100 { margin-top: 100px; }
+
+.glitch {
+    position: relative;
+    color: var(--text);
+}
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black);
+}
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--accent);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00ccff; /* Une touche de bleu cyan pour le contraste */
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 15px, 0); }
+    20% { clip: rect(60px, 9999px, 80px, 0); }
+    40% { clip: rect(30px, 9999px, 10px, 0); }
+    60% { clip: rect(90px, 9999px, 95px, 0); }
+    80% { clip: rect(40px, 9999px, 60px, 0); }
+    100% { clip: rect(10px, 9999px, 30px, 0); }
+}
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 90px, 0); }
+    20% { clip: rect(80px, 9999px, 20px, 0); }
+    40% { clip: rect(20px, 9999px, 50px, 0); }
+    60% { clip: rect(60px, 9999px, 10px, 0); }
+    80% { clip: rect(30px, 9999px, 70px, 0); }
+    100% { clip: rect(50px, 9999px, 40px, 0); }
+}
+.status-badge {
+    position: fixed;
+    top: 100px; /* Ajuste selon ta navbar */
+    right: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--success);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff00;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
     </style>
 </head>
 <body>
@@ -1015,6 +1090,10 @@
             <button class="nav-cta">GET TRYX</button>
         </div>
     </nav>
+    <div class="status-badge">
+    <span class="status-dot"></span>
+    STATUS: <span style="color: #00ff00; font-weight: bold;">WORKING</span> | GAME: MM2
+</div>
 
     <main>
         <div class="container">
@@ -1022,7 +1101,7 @@
             <section class="hero-section" id="home">
                 <div class="hero-content">
                     <span class="hero-badge">BEST MM2 SCRIPT</span>
-                    <h1 class="hero-title">
+                    <h1 class="hero-title glitch">
                         🔪 <span>TRYX</span>🎄
                     </h1>
                     <p class="hero-subtitle">
@@ -1618,6 +1697,51 @@
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
         });
+
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            activateRainbowMode();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+function activateRainbowMode() {
+    showNotification('SECRET MODE ACTIVATED! 🌈', 'success');
+    document.documentElement.style.setProperty('--accent', '#ff00ff'); // Change le rouge en violet/rose
+    
+    // Lance une pluie de confettis massive
+    const duration = 5 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
         
     </script>
 </body>
