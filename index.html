@@ -1698,30 +1698,26 @@
             observer.observe(section);
         });
 
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
+ // ===============================================
+// ===== EASTER EGG LOGIC & ACTIVATION FUNCTION =====
+// ===============================================
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            activateRainbowMode();
-            konamiIndex = 0;
-        }
-    } else {
-        konamiIndex = 0;
-    }
-});
-
+// Cette fonction active le mode Arc-en-ciel. 
+// Elle doit être appelée par le Konami Code (PC) ou le Tap Code (Mobile).
 function activateRainbowMode() {
+    // 1. Notification
     showNotification('SECRET MODE ACTIVATED! 🌈', 'success');
-    document.documentElement.style.setProperty('--accent', '#ff00ff'); // Change le rouge en violet/rose
     
-    // Lance une pluie de confettis massive
+    // 2. Changement de couleur du thème
+    // Définit la couleur d'accentuation en violet/rose pour le mode (à l'aide de la variable CSS --accent)
+    document.documentElement.style.setProperty('--accent', '#ff00ff'); 
+    
+    // 3. Animation Confetti
     const duration = 5 * 1000;
     const end = Date.now() + duration;
 
     (function frame() {
+        // Confettis qui partent de la gauche (angle 60)
         confetti({
             particleCount: 5,
             angle: 60,
@@ -1729,6 +1725,7 @@ function activateRainbowMode() {
             origin: { x: 0 },
             colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
         });
+        // Confettis qui partent de la droite (angle 120)
         confetti({
             particleCount: 5,
             angle: 120,
@@ -1742,57 +1739,72 @@ function activateRainbowMode() {
         }
     }());
 }
-   
-// ===== ALTERNATIVE MOBILE (Tap Code) =====
-const tapTarget = document.querySelector('.nav-logo'); // Cible: Le logo TRYX dans la barre de navigation
-const TAP_SEQUENCE_LENGTH = 7; // Exemple : 7 taps rapides
-const TAP_TIMEOUT = 500; // Temps max entre deux taps (en millisecondes)
+
+// ===============================================
+// ===== EASTER EGG 1: KONAMI CODE (Clavier PC) =====
+// ===============================================
+
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    // Utilise toLowerCase() pour ignorer la casse
+    const key = e.key.toLowerCase(); 
+    
+    // Si la touche tapée est la bonne
+    if (key === konamiCode[konamiIndex].toLowerCase()) { 
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            activateRainbowMode();
+            konamiIndex = 0; // Réinitialise pour les tentatives futures
+        }
+    } else {
+        konamiIndex = 0; // Réinitialise si la séquence est fausse
+    }
+});
+
+
+// ===============================================
+// ===== EASTER EGG 2: TAP CODE (Tactile Mobile) =====
+// ===============================================
+
+const tapTarget = document.querySelector('.nav-logo'); // Cible: Le logo TRYX
+const TAP_SEQUENCE_LENGTH = 7; // Nombre de tapes nécessaires
+const TAP_TIMEOUT = 500; // 0.5 seconde max entre les tapes
 
 let tapCount = 0;
 let lastTapTime = 0;
 
-tapTarget.addEventListener('click', (e) => {
-    e.preventDefault(); // Empêche la navigation
-    
-    const currentTime = Date.now();
-    
-    // 1. Vérifie si le tap est trop lent (réinitialise la séquence)
-    if (currentTime - lastTapTime > TAP_TIMEOUT) {
-        tapCount = 1;
-    } 
-    // 2. Si le tap est rapide, incrémente le compteur
-    else {
-        tapCount++;
-    }
-    
-    lastTapTime = currentTime; // Met à jour l'heure du dernier tap
+if (tapTarget) {
+    tapTarget.addEventListener('click', (e) => {
+        // e.preventDefault(); // Optionnel : à désactiver si on veut que le logo reste un lien
 
-    // DEBUG: Affiche le compteur dans la console (à retirer plus tard)
-    // console.log(`Tap count: ${tapCount}`); 
+        const currentTime = Date.now();
+        
+        // 1. Vérifie si l'intervalle est dépassé (ou si c'est le premier tap)
+        if (currentTime - lastTapTime > TAP_TIMEOUT) {
+            tapCount = 1;
+        } 
+        // 2. Si le tap est rapide, on continue la séquence
+        else {
+            tapCount++;
+        }
+        
+        lastTapTime = currentTime; 
 
-    // 3. Vérifie si la séquence est complète
-    if (tapCount === TAP_SEQUENCE_LENGTH) {
-        // Appelle la fonction qui active le mode Arc-en-ciel
-        activateRainbowMode();
-        tapCount = 0; // Réinitialise
-    }
-    
-    // Ajoute un feedback visuel
-    tapTarget.classList.add('tapped');
-    setTimeout(() => {
-        tapTarget.classList.remove('tapped');
-    }, 100);
-});
-
-// Ajoute un peu de CSS pour le feedback visuel (taper le logo)
-// Ceci doit être placé dans la section <style>
-/*
-.nav-logo.tapped {
-    transform: scale(1.05);
-    color: #00ccff !important;
-    transition: transform 0.1s, color 0.1s;
+        // 3. Activation
+        if (tapCount === TAP_SEQUENCE_LENGTH) {
+            activateRainbowMode();
+            tapCount = 0; // Réinitialise
+        }
+        
+        // 4. Feedback visuel (nécessite le CSS .nav-logo.tapped)
+        tapTarget.classList.add('tapped');
+        setTimeout(() => {
+            tapTarget.classList.remove('tapped');
+        }, 100);
+    });
 }
-*/
     </script>
 </body>
 </html>
